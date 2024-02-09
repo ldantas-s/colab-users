@@ -1,5 +1,5 @@
 export default {
-  testEnvironment: 'jsdom',
+  testEnvironment: '<rootDir>/test/JSDOMEnvironment.ts',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
