@@ -1,17 +1,21 @@
+import { useEffect, useMemo, useState } from 'react';
+
+import { User } from './entities/User';
+import { UserService } from './services/UserService';
+import { UserCards } from './components/UserCards';
+
 const App = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const userService = useMemo(() => new UserService(), []);
+
+  useEffect(() => {
+    userService.fetchUsers().then(setUsers);
+  }, [userService]);
+
   return (
     <>
       <h1>ColabUsers</h1>
-      <ul>
-        <li data-testid="user-card">
-          <p data-testid="user-card_name">Porfirio Verduzco</p>
-          <p data-testid="user-card_state">Durango, MX</p>
-        </li>
-        <li data-testid="user-card">
-          <p data-testid="user-card_name">Felicia Morris</p>
-          <p data-testid="user-card_state">Victoria, AU</p>
-        </li>
-      </ul>
+      <UserCards users={users} />
     </>
   );
 };
