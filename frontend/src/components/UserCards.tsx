@@ -8,10 +8,10 @@ type UserCards = {
 
 export const UserCards = ({ users }: UserCards) => {
   return (
-    <ul>
+    <section className="flex flex-wrap m-2 py-6">
       {users.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
-    </ul>
+    </section>
   );
 };
