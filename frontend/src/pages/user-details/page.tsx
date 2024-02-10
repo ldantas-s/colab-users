@@ -1,4 +1,9 @@
 import { useLoaderData } from 'react-router-dom';
+
+import { Map } from '../../components/Map';
+import { FeedbackForm } from '../../components/FeedbackForm';
+import { DetailsInfo } from '../../components/DetailsInfo';
+
 import { UserLoaderReturn } from './loader';
 
 export const UserDetails = () => {
@@ -6,115 +11,26 @@ export const UserDetails = () => {
 
   if (!data.user) return <h1>empty</h1>;
 
-  const mapUrl = () => {
-    return `https://maps.google.com/maps?width=100%&height=600&hl=en&q=${data.user.location.lat},${data.user.location.lon}&ie=UTF8&t=&z=14&iwloc=B&output=embed`;
-  };
+  const { city, postCode, streetName, streetNumber, lat, lon } =
+    data.user.location;
+  const address = `${streetName}, ${streetNumber}, ${city} - ${data.user.nationality}, ${postCode}`;
 
   return (
     <section className="text-gray-600 body-font relative">
       <div className="container px-5 pt-12 pb-24 mx-auto flex sm:flex-nowrap flex-wrap">
         <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
-          <iframe
-            width="100%"
-            height="100%"
-            className="absolute inset-0"
-            title="map"
-            src={mapUrl()}
-            style={{ filter: 'grayscale(1) contrast(1.2) opacity(0.4)' }}
-          ></iframe>
-          <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md w-full">
-            <div className="lg:w-1/2 lg:flex-row flex flex-col gap-4 w-full px-6">
-              <img
-                src={data.user.profilePhoto}
-                alt=""
-                className="rounded-full w-3/6 self-center"
-              />
-              <div className="lg:flex flex-col text-center justify-center">
-                <h2
-                  data-testid="user-detail_name"
-                  className="title-font font-semibold text-gray-900 tracking-widest text-xl"
-                >
-                  {data.user.name}
-                </h2>
-                <p
-                  data-testid="user-detail_username"
-                  className="text-gray-500 italic"
-                >
-                  @{data.user.username}
-                </p>
-                <p
-                  className="text-gray-500 italic text-xs mt-2"
-                  data-testid="user-detail_registered"
-                >
-                  {data.user.getRegisteredTime()}
-                </p>
-              </div>
-            </div>
-            <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
-              <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs uppercase">
-                Email
-              </h2>
-              <a
-                data-testid="user-detail_email"
-                className="text-indigo-500 leading-relaxed"
-              >
-                {data.user.email}
-              </a>
-              <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4 uppercase">
-                Phone
-              </h2>
-              <p data-testid="user-detail_cell" className="leading-relaxed">
-                {data.user.cell}
-              </p>
-              <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4 uppercase">
-                Address
-              </h2>
-              <p data-testid="user-detail_location" className="leading-relaxed">
-                {data.user.location.streetName},{' '}
-                {data.user.location.streetNumber}, {data.user.location.city} -{' '}
-                {data.user.nationality}, {data.user.location.postCode}
-              </p>
-            </div>
-          </div>
+          <Map latitude={lat} longitude={lon} />
+          <DetailsInfo
+            address={address}
+            cell={data.user.cell}
+            email={data.user.email}
+            username={data.user.username}
+            profilePhoto={data.user.profilePhoto}
+            name={data.user.name}
+            registeredAt={data.user.getRegisteredTime()}
+          />
         </div>
-        <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-          <h2 className="text-gray-900 text-lg mb-1 font-medium title-font">
-            Feedback
-          </h2>
-          <p className="leading-relaxed mb-5 text-gray-600">
-            Please feel free to share your feedback or schedule a call at your
-            convenience. I'm eager to connect and discuss further!
-          </p>
-          <div className="relative mb-4">
-            <label htmlFor="email" className="leading-7 text-sm text-gray-600">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              required
-            />
-          </div>
-          <div className="relative mb-4">
-            <label
-              htmlFor="message"
-              className="leading-7 text-sm text-gray-600"
-            >
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-              required
-            ></textarea>
-          </div>
-          <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-            Send
-          </button>
-        </div>
+        <FeedbackForm />
       </div>
     </section>
   );
