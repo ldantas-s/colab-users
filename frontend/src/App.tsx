@@ -1,23 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { User } from './entities/User';
-import { UserService } from './services/UserService';
-import { UserCards } from './components/UserCards';
+import { routesConfig } from './routes';
+
+const routes = createBrowserRouter(routesConfig);
 
 const App = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const userService = useMemo(() => new UserService(), []);
-
-  useEffect(() => {
-    userService.fetchUsers().then(setUsers);
-  }, [userService]);
-
-  return (
-    <>
-      <h1>ColabUsers</h1>
-      <UserCards users={users} />
-    </>
-  );
+  return <RouterProvider router={routes} />;
 };
 
 export default App;
