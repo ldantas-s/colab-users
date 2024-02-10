@@ -8,8 +8,8 @@ export const ColabLogo = () => {
       role="img"
       width="1000mm"
       height="1000mm"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
       viewBox="0 0 1000 1000"
     >
@@ -33,9 +33,9 @@ export const ColabLogo = () => {
   xmlns="http://www.w3.org/2000/svg"
   fill="none"
   stroke="currentColor"
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  stroke-width="2"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  strokeWidth="2"
   className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
   viewBox="0 0 24 24"
 >
