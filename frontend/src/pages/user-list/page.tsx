@@ -8,10 +8,5 @@ export const UserList = () => {
   if (!data.users?.length)
     return <h1 data-testid="user-card__empty-space">There aren't users!</h1>;
 
-  return (
-    <>
-      <h1>ColabUsers</h1>
-      <UserCards users={data.users} />
-    </>
-  );
+  return <UserCards users={data.users} />;
 };
