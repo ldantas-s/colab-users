@@ -180,11 +180,11 @@ test('should go to the user details page when click on the user card', async () 
     expect(screen.getByTestId('user-detail_cell')).toHaveTextContent(
       '(691) 705 1285'
     );
-    expect(screen.getByTestId('user-detail_timezone')).toHaveTextContent(
-      '+9:00'
-    );
     expect(screen.getByTestId('user-detail_registered')).toHaveTextContent(
       'Registerd in Aug 2021'
+    );
+    expect(screen.getByTestId('user-detail_location')).toHaveTextContent(
+      'Continuación Yucatán, 389, San Francisco Chimalpa - MX, 82112'
     );
   });
 });
