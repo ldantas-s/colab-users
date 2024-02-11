@@ -19,7 +19,7 @@ export const UserCard = ({ user }: UserCard) => {
       onClick={onClick}
       className="p-2 lg:w-1/3 md:w-1/2 w-full cursor-pointer hover:scale-[1.02] active:scale-100"
     >
-      <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+      <div className="h-full flex items-center border-indigo-100 border p-4 rounded-lg">
         <img
           src={user.profilePhoto}
           alt="Profile Photo"
@@ -44,7 +44,7 @@ export const UserCard = ({ user }: UserCard) => {
 
 export const UserCardSkeleton = () => (
   <div className="p-2 lg:w-1/3 md:w-1/2 w-full h-28">
-    <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+    <div className="h-full flex items-center border-indigo-100 border p-4 rounded-lg">
       <Profile />
       <div>
         <div className="h-2.5 bg-gray-200 rounded-full w-32 mb-2"></div>

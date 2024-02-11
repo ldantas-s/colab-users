@@ -18,7 +18,7 @@ export const PaginationButton = ({
   <button
     data-testid={testId}
     onClick={onClick}
-    className={`flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 ${styleClasses}`}
+    className={`flex items-center justify-center px-4 h-10 text-sm font-medium text-white bg-indigo-800 hover:bg-indigo-900 ${styleClasses}`}
   >
     {backIcon} {label} {frontIcon}
   </button>
