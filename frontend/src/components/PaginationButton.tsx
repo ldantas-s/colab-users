@@ -4,6 +4,7 @@ type PaginationButton = {
   label: string;
   onClick: () => void;
   styleClasses?: string;
+  testId?: string;
 };
 
 export const PaginationButton = ({
@@ -12,8 +13,10 @@ export const PaginationButton = ({
   label,
   onClick,
   styleClasses,
+  testId,
 }: PaginationButton) => (
   <button
+    data-testid={testId}
     onClick={onClick}
     className={`flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 ${styleClasses}`}
   >

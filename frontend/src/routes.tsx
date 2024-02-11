@@ -1,4 +1,4 @@
-import { UserList, UserListError, userListLoader } from './pages/user-list';
+import { UserList, UserListError } from './pages/user-list';
 import { UserDetailError, UserDetails, userLoader } from './pages/user-details';
 import { UserServiceHttp } from './services/UserServiceHttp';
 import { AxiosAdapter } from './services/AxiosAdapter';
@@ -10,9 +10,8 @@ const userService = new UserServiceHttp(axiosClientHttp);
 export const pagesRoute = {
   'user-list': {
     path: '/',
-    element: <UserList />,
+    element: <UserList userService={userService} />,
     errorElement: <UserListError />,
-    loader: userListLoader(userService),
   },
   'user-details': {
     path: '/user/:id',

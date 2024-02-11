@@ -11,17 +11,13 @@ export class UserServiceHttp implements UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  async fetchUsers(): Promise<User[]> {
+  async fetchUsers(params?: { [key: string]: string }): Promise<User[]> {
     const data = await this.httpClient.get<UserApiResponse>(
-      `${this.baseUrl}/?seed=${this.seed}&results=${this.results}`
+      `${this.baseUrl}/?seed=${this.seed}&results=${
+        this.results
+      }&${this.clearFetchParams(params)}`
     );
-    const users = data.results.map((responseUser) => {
-      const user = User.createUser(responseUser);
-      this.usersMemo.set(user.id, user);
-      return user;
-    });
-
-    return users;
+    return this.handleUsers(data.results);
   }
 
   async getUserById(id: string): Promise<User> {
@@ -34,5 +30,21 @@ export class UserServiceHttp implements UserService {
     //   `${this.baseUrl}/${id}`
     // );
     // return User.createUser(data.results[0]);
+  }
+
+  private handleUsers(users: UserApiResponse['results']): User[] {
+    return users.map((responseUser) => {
+      const user = User.createUser(responseUser);
+      this.usersMemo.set(user.id, user);
+      return user;
+    });
+  }
+
+  private clearFetchParams(params?: { [key: string]: string }): string {
+    if (!params) return '';
+    return JSON.stringify(params)
+      .replace(/:/gm, '=')
+      .replace(/\{|\}|"/gm, '')
+      .replace(/,/gm, '&');
   }
 }

@@ -23,6 +23,7 @@ export const PaginationButtons = ({
         backIcon={<BackwardArrow />}
         onClick={backwardClick}
         styleClasses="rounded-s"
+        testId="paginate-prev__button"
       />
     )}
     {showForwardButton && (
@@ -31,6 +32,7 @@ export const PaginationButtons = ({
         frontIcon={<ForwardArrow />}
         onClick={forwardClick}
         styleClasses="rounded-e"
+        testId="paginate-next__button"
       />
     )}
   </div>
