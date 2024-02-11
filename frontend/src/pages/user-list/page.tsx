@@ -1,6 +1,7 @@
+import { useLoaderData } from 'react-router-dom';
+
 import { User } from '../../entities/User';
 import { UserCards } from '../../components/UserCards';
-import { useLoaderData } from 'react-router-dom';
 
 export const UserList = () => {
   const data = useLoaderData() as { users: User[] };

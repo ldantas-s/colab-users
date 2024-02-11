@@ -2,6 +2,7 @@ import { UserList, UserListError, userListLoader } from './pages/user-list';
 import { UserDetailError, UserDetails, userLoader } from './pages/user-details';
 import { UserServiceHttp } from './services/UserServiceHttp';
 import { AxiosAdapter } from './services/AxiosAdapter';
+import { Layout } from './pages/Layout';
 
 const axiosClientHttp = new AxiosAdapter();
 const userService = new UserServiceHttp(axiosClientHttp);
@@ -21,4 +22,10 @@ export const pagesRoute = {
   },
 };
 
-export const routesConfig = Object.values(pagesRoute);
+export const routesConfig = [
+  {
+    path: '/',
+    element: <Layout />,
+    children: Object.values(pagesRoute),
+  },
+];
