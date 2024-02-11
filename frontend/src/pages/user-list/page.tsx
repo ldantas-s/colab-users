@@ -1,5 +1,5 @@
 import { User } from '../../entities/User';
-import { UserCards } from '../../components/UserCards';
+import { UserCards, UserCardsSkeleton } from '../../components/UserCards';
 import { Pagination } from '../../components/Pagination';
 import { useCallback, useEffect, useState } from 'react';
 import { UserService } from '../../services/UserService';
@@ -55,12 +55,7 @@ export const UserList = ({ userService }: UserList) => {
     setPagination((prev) => ({ ...prev, actualPage: prev.actualPage + 1 }));
   };
 
-  if (!checkStatus(reqStatus).isFinished)
-    return (
-      <h1 data-testid="user-card__loading" className="text-center my-6">
-        LOADING...
-      </h1>
-    );
+  if (!checkStatus(reqStatus).isFinished) return <UserCardsSkeleton />;
 
   if (checkStatus(reqStatus).isFinished && !users?.length)
     return (
