@@ -1,15 +1,21 @@
+import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import { Map } from '../../components/Map';
 import { FeedbackForm } from '../../components/FeedbackForm';
 import { DetailsInfo } from '../../components/DetailsInfo';
+import { EmptySpace } from '../../components/EmptySpace';
 
 import { UserLoaderReturn } from './loader';
 
 export const UserDetails = () => {
   const data = useLoaderData() as UserLoaderReturn;
 
-  if (!data.user) return <h1>empty</h1>;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (!data.user) return <EmptySpace title="No user found" />;
 
   const { city, postCode, streetName, streetNumber, lat, lon } =
     data.user.location;

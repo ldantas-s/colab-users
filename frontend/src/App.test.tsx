@@ -132,6 +132,7 @@ beforeEach(() => {
       },
     })
   );
+  jest.spyOn(window, 'scrollTo').mockImplementation(() => null);
 });
 
 test('should show the list of users', async () => {

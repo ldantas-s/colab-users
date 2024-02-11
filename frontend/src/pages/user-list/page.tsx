@@ -3,7 +3,7 @@ import { UserCards, UserCardsSkeleton } from '../../components/UserCards';
 import { Pagination } from '../../components/Pagination';
 import { useCallback, useEffect, useState } from 'react';
 import { UserService } from '../../services/UserService';
-import { EmptySpace } from './EmptySpace';
+import { EmptySpace } from '../../components/EmptySpace';
 
 const initialPaginationState = {
   pages: 5,
@@ -44,6 +44,7 @@ export const UserList = ({ userService }: UserList) => {
 
   useEffect(() => {
     fetchingUsers();
+    window.scrollTo(0, 0);
   }, [fetchingUsers]);
 
   const backwardClick = () => {
@@ -59,7 +60,7 @@ export const UserList = ({ userService }: UserList) => {
   if (!checkStatus(reqStatus).isFinished) return <UserCardsSkeleton />;
 
   if (checkStatus(reqStatus).isFinished && !users?.length)
-    return <EmptySpace />;
+    return <EmptySpace title="No users found" />;
 
   return (
     <>
