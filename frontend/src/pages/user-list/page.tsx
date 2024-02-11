@@ -3,6 +3,7 @@ import { UserCards, UserCardsSkeleton } from '../../components/UserCards';
 import { Pagination } from '../../components/Pagination';
 import { useCallback, useEffect, useState } from 'react';
 import { UserService } from '../../services/UserService';
+import { EmptySpace } from './EmptySpace';
 
 const initialPaginationState = {
   pages: 5,
@@ -58,11 +59,7 @@ export const UserList = ({ userService }: UserList) => {
   if (!checkStatus(reqStatus).isFinished) return <UserCardsSkeleton />;
 
   if (checkStatus(reqStatus).isFinished && !users?.length)
-    return (
-      <h1 data-testid="user-card__empty-space" className="text-center my-6">
-        Empty Space
-      </h1>
-    );
+    return <EmptySpace />;
 
   return (
     <>
