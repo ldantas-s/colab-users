@@ -3,22 +3,21 @@ import { UserResponse } from '../services/UsersResponse';
 export class User {
   static createUser(user: UserResponse) {
     const name = `${user.name.first} ${user.name.last}`;
-    const id = user.login.uuid;
+    const id = user.id;
     const state = user.location.state;
-    const nationality = user.nat;
+    const nationality = user.nationality;
     const profilePhoto = user.picture.large;
-    const username = user.login.username;
+    const username = user.userName;
     const email = user.email;
     const cell = user.cell;
-    const timezone = user.location.timezone.offset;
-    const registered = user.registered.date;
+    const registered = user.registeredAt;
     const location = {
       lat: user.location.coordinates.latitude,
       lon: user.location.coordinates.longitude,
       streetName: user.location.street.name,
       streetNumber: user.location.street.number,
       city: user.location.city,
-      postCode: user.location.postcode,
+      postCode: user.location.postCode,
     };
     return new User(
       id,
@@ -29,7 +28,6 @@ export class User {
       username,
       email,
       cell,
-      timezone,
       registered,
       location
     );
@@ -44,7 +42,6 @@ export class User {
     public username: string,
     public email: string,
     public cell: string,
-    public timezone: string,
     public registered: string,
     public location: {
       streetName: string;
