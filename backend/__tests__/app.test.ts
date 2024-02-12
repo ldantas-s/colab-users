@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../src/app';
+import { AxiosAdapter } from '../src/services/http/AxiosAdapter';
 
 const requestApp = request(app);
 
@@ -43,4 +44,16 @@ test('should return a list with 6 users defined in the params', async () => {
 
   expect(response.status).toBe(200);
   expect(response.body.results.length).toBe(6);
+});
+
+test('should handle a generic error', async () => {
+  jest.spyOn(AxiosAdapter.prototype, 'get').mockRejectedValue({});
+  const response = await requestApp.get('/api/users');
+
+  expect(response.status).toBe(500);
+  expect(response.body).toMatchObject({
+    type: 'internalServerError',
+    message:
+      'Sorry, something went wrong on the server. Please try again later.',
+  });
 });
