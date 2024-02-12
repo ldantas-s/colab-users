@@ -4,9 +4,10 @@ import { Queries, UserServiceHttp } from '../services/UserService';
 
 const usersRoutes = express.Router();
 
+const userService = new UserServiceHttp();
+
 usersRoutes.get('/', async (req, res, next) => {
   try {
-    const userService = new UserServiceHttp();
     const users = await userService.getUsers(req.query as Queries);
 
     res.status(200).json({
