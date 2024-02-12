@@ -66,7 +66,7 @@ const mockReturnFromAPI = (n: number = 12) => ({
   results: Array(n).fill(userReturnedFromAPI),
 });
 
-test.only('should return a list of users', async () => {
+test('should return a list of users', async () => {
   jest
     .spyOn(httpClient, 'get')
     .mockImplementation(() => Promise.resolve(mockReturnFromAPI()));
@@ -102,7 +102,7 @@ test.only('should return a list of users', async () => {
   });
 });
 
-test.only('should return a list with 6 users defined in the params', async () => {
+test('should return a list with 6 users defined in the params', async () => {
   jest
     .spyOn(httpClient, 'get')
     .mockImplementation(() => Promise.resolve(mockReturnFromAPI(6)));
@@ -114,7 +114,7 @@ test.only('should return a list with 6 users defined in the params', async () =>
   expect(response.body.results.length).toBe(6);
 });
 
-test.only('should handle a generic error', async () => {
+test('should handle a generic error', async () => {
   jest.spyOn(httpClient, 'get').mockRejectedValue({});
   const response = await requestApp.get('/api/users');
 
@@ -126,7 +126,7 @@ test.only('should handle a generic error', async () => {
   });
 });
 
-test.only('should not call the httpClient if the queries is already called', async () => {
+test('should not call the httpClient if the queries is already called', async () => {
   const httpClientGetMock = jest.fn(() =>
     Promise.resolve(mockReturnFromAPI(1))
   );
@@ -141,4 +141,50 @@ test.only('should not call the httpClient if the queries is already called', asy
   expect(secondResponse.status).toBe(200);
   expect(httpClientGetMock).toHaveBeenCalledTimes(1);
   expect(firstResponse.body).toMatchObject(secondResponse.body);
+});
+
+test('should return the user details by id', async () => {
+  const response = await requestApp.get(
+    '/api/users/c9ad94fd-c992-4cb6-ae9e-6d0e9fe42cb3'
+  );
+
+  expect(response.status).toBe(200);
+  expect(response.body).toMatchObject({
+    results: {
+      id: 'c9ad94fd-c992-4cb6-ae9e-6d0e9fe42cb3',
+      name: { first: 'Peggy', last: 'Morales' },
+      email: 'peggy.morales@example.com',
+      cell: '0490-519-952',
+      registeredAt: '2020-08-15T04:46:56.185Z',
+      userName: 'whitegoose848',
+      picture: {
+        large: 'https://randomuser.me/api/portraits/women/58.jpg',
+        medium: 'https://randomuser.me/api/portraits/med/women/58.jpg',
+      },
+      nationality: 'AU',
+      location: {
+        state: 'Victoria',
+        city: 'Warrnambool',
+        street: {
+          number: 5987,
+          name: 'Fairview St',
+        },
+        postCode: 245,
+        coordinates: {
+          latitude: '-87.1478',
+          longitude: '136.9002',
+        },
+      },
+    },
+  });
+});
+
+test('should return a handle error when there is no user with the id informed', async () => {
+  const response = await requestApp.get('/api/users/fake-user-id');
+
+  expect(response.status).toBe(404);
+  expect(response.body).toMatchObject({
+    type: 'notFound',
+    message: 'User not found!',
+  });
 });

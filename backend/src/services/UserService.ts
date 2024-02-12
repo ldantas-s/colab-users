@@ -3,10 +3,12 @@ import { UserApiResponse } from '../UserResponse';
 import { HttpClient } from './http/HttpClient';
 import { AxiosAdapter } from './http/AxiosAdapter';
 import { InternalServerError } from '../utils/errors/InternalServerError';
+import { NotFoundError } from '../utils/errors/NotFoundError';
 
 export type Queries = { [key: string]: string } | { cache?: boolean };
 export default interface UserService {
   getUsers(queries?: Queries): Promise<User[]>;
+  getUserById(id: string): Promise<User>;
 }
 
 export class UserServiceHttp implements UserService {
@@ -52,5 +54,21 @@ export class UserServiceHttp implements UserService {
       .replace(/:/gm, '=')
       .replace(/\{|\}|"/gm, '')
       .replace(/,/gm, '&');
+  }
+
+  async getUserById(id: string): Promise<User> {
+    try {
+      const users = Object.values(this.usersMemoization).reduce(
+        (prev, curr) => [...prev, ...curr],
+        []
+      );
+      const user = users.find((usr) => usr.id === id);
+
+      if (!user) throw new NotFoundError('User not found!');
+
+      return Promise.resolve(user);
+    } catch (error) {
+      throw error;
+    }
   }
 }

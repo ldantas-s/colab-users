@@ -18,4 +18,16 @@ usersRoutes.get('/', async (req, res, next) => {
   }
 });
 
+usersRoutes.get('/:userId', async (req, res, next) => {
+  try {
+    const user = await userService.getUserById(req.params.userId);
+
+    res.status(200).json({
+      results: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { usersRoutes };
