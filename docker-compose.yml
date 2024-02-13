@@ -6,9 +6,6 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: colab-users_be
-    command: ['yarn', 'dev']
-    volumes:
-      - ./backend:/backend
     ports:
       - 3000:3000
   frontend:
@@ -16,8 +13,5 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: colab-user_fe
-    command: ['yarn', 'dev']
-    volumes:
-      - ./frontend:/frontend
     ports:
       - 5173:5173

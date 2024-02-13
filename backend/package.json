@@ -6,7 +6,7 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts",
+    "dev": "yarn swagger && ts-node src/server.ts",
     "build": "tsc",
     "test": "jest",
     "swagger": "ts-node ./src/config/swagger.ts"
@@ -16,7 +16,6 @@
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.6",
-    "@types/pg": "^8.10.9",
     "@types/supertest": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.6",
     "jest": "^29.7.0",
