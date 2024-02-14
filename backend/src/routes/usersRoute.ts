@@ -7,6 +7,7 @@ const usersRoutes = express.Router();
 const userService = new UserServiceHttp();
 
 usersRoutes.get('/', async (req, res, next) => {
+  // #swagger.tags = ['Users']
   try {
     const users = await userService.getUsers(req.query as Queries);
 
@@ -19,6 +20,7 @@ usersRoutes.get('/', async (req, res, next) => {
 });
 
 usersRoutes.get('/:userId', async (req, res, next) => {
+  // #swagger.tags = ['Users']
   try {
     const user = await userService.getUserById(req.params.userId);
 
