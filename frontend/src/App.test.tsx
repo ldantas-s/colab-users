@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
 import { routesConfig } from './routes';
-import { AxiosAdapter } from './services/AxiosAdapter';
+import { AxiosAdapter } from './services/http/AxiosAdapter';
 import { UserServiceHttp } from './services/UserServiceHttp';
 import { User } from './entities/User';
 

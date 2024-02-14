@@ -1,4 +1,4 @@
-import { HttpClient } from './HttpClient';
+import { HttpClient } from './http/HttpClient';
 import { User } from '../entities/User';
 import { UserApiResponse, UsersApiResponse } from './UsersResponse';
 import { UserService } from './UserService';
