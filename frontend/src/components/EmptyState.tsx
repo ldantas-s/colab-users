@@ -1,7 +1,7 @@
-type EmptySpace = {
+type EmptyState = {
   title: string;
 };
-export const EmptySpace = ({ title }: EmptySpace) => (
+export const EmptyState = ({ title }: EmptyState) => (
   <div className="h-[28rem] flex flex-col items-center justify-center">
     <h1
       data-testid="user-card__empty-space"

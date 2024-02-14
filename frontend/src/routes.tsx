@@ -1,8 +1,9 @@
-import { UserList, UserListError } from './pages/user-list';
-import { UserDetailError, UserDetails, userLoader } from './pages/user-details';
+import { UserList } from './pages/user-list';
+import { UserDetails, userLoader } from './pages/user-details';
 import { UserServiceHttp } from './services/UserServiceHttp';
 import { AxiosAdapter } from './services/http/AxiosAdapter';
 import { Layout } from './pages/Layout';
+import { ErrorState } from './components/ErrorState';
 
 const axiosClientHttp = new AxiosAdapter();
 const userService = new UserServiceHttp(axiosClientHttp);
@@ -15,12 +16,16 @@ export const routesConfig = [
       {
         path: '/',
         element: <UserList userService={userService} />,
-        errorElement: <UserListError />,
       },
       {
         path: '/user/:id',
         element: <UserDetails />,
-        errorElement: <UserDetailError />,
+        errorElement: (
+          <ErrorState
+            title="Sorry, we can't find this user"
+            content="Try to come back to users list and click in another one!"
+          />
+        ),
         loader: userLoader(userService),
       },
     ],

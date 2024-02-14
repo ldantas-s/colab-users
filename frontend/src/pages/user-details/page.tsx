@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { Map } from '../../components/Map';
 import { FeedbackForm } from '../../components/FeedbackForm';
 import { DetailsInfo } from '../../components/DetailsInfo';
-import { EmptySpace } from '../../components/EmptySpace';
+import { EmptyState } from '../../components/EmptyState';
 
 import { UserLoaderReturn } from './loader';
 
@@ -15,7 +15,7 @@ export const UserDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!data.user) return <EmptySpace title="No user found" />;
+  if (!data.user) return <EmptyState title="No user found" />;
 
   const { city, postCode, streetName, streetNumber, lat, lon } =
     data.user.location;

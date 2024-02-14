@@ -8,7 +8,7 @@ export const Layout = () => {
 
   return (
     <>
-      <h1 className="sm:text-3xl text-2xl font-bold title-font text-gray-900 text-center pt-7">
+      <h1 className="sm:text-3xl text-2xl font-bold title-font text-gray-700 text-center pt-7">
         ColabUsers
       </h1>
       <main className="pb-6">
